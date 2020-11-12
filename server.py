@@ -32,7 +32,6 @@ class S(BaseHTTPRequestHandler):
         if sentence == '':
             result = {'status': 'error', 'message': 'Пустая строка!'}
             return result
-        # match = re.search('[^а-яА-Я0-9ёЁ ]', sentence)
         match = re.search('[a-zA-Z]', sentence)
         if match:
             result = {'status': 'error', 'message': 'Поддерживается только кириллица'}
@@ -56,7 +55,7 @@ class S(BaseHTTPRequestHandler):
         return result
 
     def do_POST(self):
-        content_length = int(self.headers['Content-Length']) 
+        content_length = int(self.headers['Content-Length'])
         post_data = self.rfile.read(content_length)
         body = json.loads(post_data)
         if 'sentence' in body:
